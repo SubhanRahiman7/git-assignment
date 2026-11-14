@@ -1,68 +1,56 @@
 GIT COMMANDS USED
 =================
 
-mkdir git-assignment
-    Makes the folder that holds the project.
+$ mkdir git-assignment && cd git-assignment
+    I made a working directory and stepped into it.
 
-cd git-assignment
-    Enters that folder so later commands act on it.
+$ git init -b main
+    Started tracking the directory; the default branch is named main.
 
-git init -b main
-    Turns the folder into a Git repository whose first branch is called main.
+$ git add index.html about.html
+    Put my two pages into the staging area.
 
-git add index.html about.html
-    Places both HTML files in the staging area, ready to be recorded.
+$ git commit -m "Initial commit: add index.html and about.html"
+    First checkpoint of the project.
 
-git commit -m "Initial commit: add index.html and about.html"
-    Saves a snapshot of the staged files as the first entry in history.
+$ git add index.html  /  git commit -m "Update index.html with intro paragraph"
+    Second checkpoint, after I added a paragraph to the home page.
 
-git add index.html
-    Stages the edited index.html.
+$ git branch feature
+    Opened a side branch to experiment without disturbing main.
 
-git commit -m "Update index.html with intro paragraph"
-    Saves the index.html edit as the second snapshot.
+$ git switch feature
+    Moved onto that side branch.
 
-git branch feature
-    Creates a separate line of development named feature.
+$ git add about.html  /  git commit -m "Add team description to about.html on feature branch"
+    Edited the about page here, so only this branch has the change.
 
-git switch feature
-    Moves the working folder onto the feature branch.
+$ git switch main
+    Went back to the main line.
 
-git add about.html
-    Stages the edit made to about.html.
+$ git merge feature --no-ff -m "Merge feature branch into main"
+    Pulled the side work in; --no-ff makes Git write a real merge commit I can point to.
 
-git commit -m "Add team description to about.html on feature branch"
-    Saves that edit on feature only, leaving main untouched.
+$ git log --oneline
+    Quick compact listing of past commits.
 
-git switch main
-    Returns to the main branch.
+$ git log --graph --oneline --all
+    Same listing drawn as a tree so the fork and merge are visible.
 
-git merge feature --no-ff -m "Merge feature branch into main"
-    Brings the feature work into main and forces a merge commit so the branching stays visible.
+$ git status
+    Shows what is modified, staged, untracked, and confirms ignored files are hidden.
 
-git log --oneline
-    Prints history with one short line per commit.
+$ git add .gitignore  /  git commit -m "Add .gitignore for .log files and temp/ folder"
+    Saved the rules that make Git skip *.log files and the temp/ directory.
 
-git log --graph --oneline --all
-    Prints history as a text diagram including every branch and merge.
+$ git commit -m "Add extra comment to index.html (to be undone)"
+    A deliberately unnecessary checkpoint I could then take back.
 
-git status
-    Reports which files are changed, staged or ignored.
+$ git reset --hard HEAD~1
+    Rolled the branch back one step, deleting that checkpoint and its edit from my files.
 
-git add .gitignore
-    Stages the ignore file, which lists *.log and temp/.
+$ git remote add origin <url>
+    Told Git where the online copy lives (done for me by gh repo create).
 
-git commit -m "Add .gitignore for .log files and temp/ folder"
-    Records the ignore rules in history.
-
-git commit -m "Add extra comment to index.html (to be undone)"
-    Creates a throwaway commit used to demonstrate undoing.
-
-git reset --hard HEAD~1
-    Moves the branch back by one commit and throws away that commit's changes.
-
-git remote add origin <url>
-    Registers the GitHub repository as the remote named origin.
-
-git push -u origin --all
-    Uploads every local branch to GitHub and links them to their remote copies.
+$ git push -u origin --all
+    Sent main and feature to GitHub and set them to follow their online versions.
